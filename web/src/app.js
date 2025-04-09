@@ -1,20 +1,26 @@
 const tbody = document.querySelector('#tbody')
-
+const saveButton = document.getElementById('saveButton')
+const idInput = document.getElementById('id')
+const nameInput = document.getElementById('name')
+const cityInput = document.getElementById('city')
+const salaryInput = document.getElementById('salary')
 
 //Read
 
 const url = 'http://localhost:8000/api/employees'
 
-//Promise
+function getEmployees(){
+    fetch(url).then((response) => {
+        return response.json()
+    })
+    .then((result) => {
+        console.log(result)
+        empList = result
+        renderTbody(result.data)
+    })
+}
 
-fetch(url).then((response) => {
-    return response.json()
-})
-.then((result) => {
-    console.log(result)
-    empList = result
-    renderTbody(result.data)
-})
+getEmployees()
 
 function renderTbody(empList){
     var tbodyContent = '';
@@ -30,4 +36,45 @@ function renderTbody(empList){
         tbodyContent += row
     })
     tbody.innerHTML = tbodyContent
+}
+
+/* Create művelet */
+
+saveButton.addEventListener('click', ()=>{
+    //JavaScript objektum
+    const emp = {
+        name: nameInput.value,
+        city: cityInput.value,
+        salary: salaryInput.value
+    }
+
+    // console.log(emp)
+
+    addEmployee(emp)
+
+    clearFields()
+    
+})
+
+function clearFields(){
+    idInput.value = ''
+    nameInput.value = ''
+    cityInput.value = ''
+    salaryInput.value = ''
+}
+
+function addEmployee(emp){
+    // console.log(emp)
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(emp),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(response => response.json())
+    .then(result => {
+        console.log(result)
+        getEmployees()
+    })
+    .catch(err => console.log(err))
 }
