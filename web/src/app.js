@@ -9,11 +9,39 @@ const salaryInput = document.getElementById('salary')
 
 const empModalLabel = document.getElementById('empModalLabel')
 
-//Read
-
 const url = 'http://localhost:8000/api/employees'
-
 var addMode = true;
+
+
+saveButton.addEventListener('click', ()=>{
+
+    if(addMode){
+        const emp = {
+            name: nameInput.value,
+            city: cityInput.value,
+            salary: salaryInput.value
+        }
+        addEmployee(emp)
+    }else{
+        const emp = {
+            id : idInput.value,
+            name: nameInput.value,
+            city: cityInput.value,
+            salary: salaryInput.value
+        }
+        updateEmployee(emp)
+    }
+    
+    clearFields()
+    
+})
+
+
+addButton.addEventListener('click',()=>{
+    clearFields()
+    addMode = true
+    empModalLabel.innerHTML = 'Hozzáadás'
+})
 
 function getEmployees(){
     fetch(url).then((response) => {
@@ -25,8 +53,6 @@ function getEmployees(){
         renderTbody(result.data)
     })
 }
-
-getEmployees()
 
 function renderTbody(empList){
     var tbodyContent = '';
@@ -53,38 +79,6 @@ function renderTbody(empList){
     tbody.innerHTML = tbodyContent
 }
 
-/* Create művelet */
-
-saveButton.addEventListener('click', ()=>{
-    //JavaScript objektum
-
-    if(addMode){
-        const emp = {
-            name: nameInput.value,
-            city: cityInput.value,
-            salary: salaryInput.value
-        }
-        addEmployee(emp)
-    }else{
-        const emp = {
-            id : idInput.value,
-            name: nameInput.value,
-            city: cityInput.value,
-            salary: salaryInput.value
-        }
-        updateEmployee(emp)
-    }
-    
-    clearFields()
-    
-})
-
-addButton.addEventListener('click',()=>{
-    clearFields()
-    addMode = true
-    empModalLabel.innerHTML = 'Hozzáadás'
-})
-
 function clearFields(){
     idInput.value = ''
     nameInput.value = ''
@@ -109,8 +103,6 @@ function addEmployee(emp){
     .catch(err => console.log(err))
 }
 
-/* Delete művelet */
-
 function deleteEmployee(id){
     const delUrl = url + "/" + id;
     fetch(delUrl, {method: "DELETE"})
@@ -121,8 +113,6 @@ function deleteEmployee(id){
     });
     
 }
-
-/* Update művelet */
 
 function editEmployee(){
     addMode = false
@@ -164,3 +154,5 @@ function updateEmployee(emp){
     addMode = true
     empModalLabel.innerHTML = 'Hozzáadás'
 }
+
+getEmployees()
