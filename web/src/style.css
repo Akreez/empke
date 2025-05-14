@@ -1,0 +1,22 @@
+@media screen and (max-width: 500px) {
+   td{
+    display: block;
+} 
+    th{
+        display: none;
+    }
+    .miniId::before{content: "Id: ";}
+    .miniName::before{content: "Név: ";}
+    .miniCity::before{content: "Település: ";}
+    .miniSalary::before{content: "Fizetés: ";}
+    .mini::before{
+        font-weight: bold;
+        display: inline-block;
+        width: 100px;
+    }
+    .miniRow{
+        display: block;
+        margin-bottom: 25px;
+    }
+}
+

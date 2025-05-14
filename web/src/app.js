@@ -58,20 +58,21 @@ function renderTbody(empList){
     var tbodyContent = '';
     empList.forEach((emp) => {
         var row = `
-        <tr>
-            <td>${emp.id}</td>
-            <td>${emp.name}</td>
-            <td>${emp.city}</td>
-            <td>${emp.salary}</td>
-            <td><button class="btn btn-secondary" onclick="editEmployee()"
+        <tr class="miniRow">
+            <td class="mini miniId">${emp.id}</td>
+            <td class="mini miniName">${emp.name}</td>
+            <td class="mini miniCity">${emp.city}</td>
+            <td class="mini miniSalary">${emp.salary}</td>
+            <td class="mini buttons"><button class="btn btn-secondary me-2" onclick="editEmployee()"
             data-id="${emp.id}"
             data-name="${emp.name}"
             data-city="${emp.city}"
             data-salary="${emp.salary}"
             data-bs-toggle="modal"
             data-bs-target="#empModal"
-            >Szerkesztés</td>
-            <td><button class="btn btn-danger" onclick="deleteEmployee(${emp.id})">X</td>
+            >Szerkesztés
+            <button class="btn btn-danger" onclick="deleteEmployee(${emp.id})">X
+            </td>
         </tr>
         `;
         tbodyContent += row
