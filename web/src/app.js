@@ -64,7 +64,7 @@ function renderTbody(empList){
             <td class="mini miniName">${emp.name}</td>
             <td class="mini miniCity">${emp.city}</td>
             <td class="mini miniSalary">${emp.salary}</td>
-            <td class="mini buttons"><button class="btn btn-secondary me-2" onclick="editEmployee()"
+            <td class="mini buttons"><button class="btn btn-secondary me-2 my-1" onclick="editEmployee()"
             data-id="${emp.id}"
             data-name="${emp.name}"
             data-city="${emp.city}"
@@ -72,7 +72,7 @@ function renderTbody(empList){
             data-bs-toggle="modal"
             data-bs-target="#empModal"
             >Szerkesztés
-            <button class="btn btn-danger" 
+            <button class="btn btn-danger my-1" 
             onclick="askDeleteEmployee(${emp.id})"
             >X
             </td>
