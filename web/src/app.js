@@ -7,9 +7,10 @@ const nameInput = document.getElementById('name')
 const cityInput = document.getElementById('city')
 const salaryInput = document.getElementById('salary')
 
-const empModalLabel = document.getElementById('empModalLabel')
+const deleteModal = document.getElementById('deleteModal')
 
 const url = 'http://localhost:8000/api/employees'
+var idForDelete = 0
 var addMode = true;
 
 
@@ -71,7 +72,9 @@ function renderTbody(empList){
             data-bs-toggle="modal"
             data-bs-target="#empModal"
             >Szerkesztés
-            <button class="btn btn-danger" onclick="deleteEmployee(${emp.id})">X
+            <button class="btn btn-danger" 
+            onclick="askDeleteEmployee(${emp.id})"
+            >X
             </td>
         </tr>
         `;
@@ -104,15 +107,27 @@ function addEmployee(emp){
     .catch(err => console.log(err))
 }
 
-function deleteEmployee(id){
-    const delUrl = url + "/" + id;
+function askDeleteEmployee(id){
+
+    const modal = new bootstrap.Modal(
+        deleteModal
+    )
+    modal.show()
+    console.log(id)
+    idForDelete = id
+
+    
+}
+
+function deleteEmployee(){
+    console.log(idForDelete)
+    const delUrl = url + "/" + idForDelete;
     fetch(delUrl, {method: "DELETE"})
     .then(response=>response.json())
     .then(result=>{
         console.log(result)
         getEmployees()
     });
-    
 }
 
 function editEmployee(){
